@@ -120,7 +120,7 @@ class _HomeState extends State<Home> {
                           height: 4.0,
                         ),
                         CustomText(
-                          text: "Think.Build",
+                          text: "Think.Plan.Build",
                           textSize: 56.0,
                           color: const Color(0xffCCD6F6).withOpacity(0.6),
                           fontWeight: FontWeight.w700,
