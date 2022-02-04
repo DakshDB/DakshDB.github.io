@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:portfolio/Widget/custom_text.dart';
+import 'package:portfolio/widgets/custom_text.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
