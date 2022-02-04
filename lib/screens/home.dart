@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:portfolio/widgets/custom_text.dart';
+import 'package:portfolio/widgets/contact.dart';
+import 'package:portfolio/widgets/email_link.dart';
+import 'package:portfolio/widgets/footer.dart';
+import 'package:portfolio/widgets/header.dart';
+import 'package:portfolio/widgets/introduction.dart';
+import 'package:portfolio/widgets/social_links.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -12,11 +17,32 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final scrollDirection = Axis.vertical;
 
+  late AutoScrollController _autoScrollController;
   bool isExpanded = true;
+
+  Future scrollToIndex(int index) async {
+    await _autoScrollController.scrollToIndex(index,
+        preferPosition: AutoScrollPosition.begin);
+    _autoScrollController.highlight(index);
+  }
 
   @override
   void initState() {
+    _autoScrollController = AutoScrollController(
+      viewportBoundaryGetter: () =>
+          Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
+      axis: scrollDirection,
+    );
     super.initState();
+  }
+
+  Widget _wrapScrollTag({int? index, Widget? child}) {
+    return AutoScrollTag(
+      key: ValueKey(index),
+      controller: _autoScrollController,
+      index: index!,
+      child: child,
+    );
   }
 
   @override
@@ -28,144 +54,63 @@ class _HomeState extends State<Home> {
           children: [
             SizedBox(
               width: size.width,
+              height: size.height * 0.1,
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 40.0, vertical: 20.0),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
                         icon: const Icon(
-                          Icons.change_history,
+                          Icons.dashboard,
                           size: 32.0,
                           color: Color(0xff64FFDA),
                         ),
-                        onPressed: () {}),
-                    const Spacer(),
+                        onPressed: () {
+                          scrollToIndex(0);
+                        }),
+                    Header(
+                      scrollToIndex: scrollToIndex,
+                    ),
                   ],
                 ),
               ),
             ),
-            Row(
-              children: [
-                //Social Icon
-                SizedBox(
-                  width: size.width * 0.09,
-                  height: size.height - 82,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      IconButton(
-                          icon: const FaIcon(FontAwesomeIcons.github),
-                          color: const Color(0xffA8B2D1),
-                          iconSize: 16.0,
-                          onPressed: () {}),
-                      IconButton(
-                          icon: const FaIcon(FontAwesomeIcons.twitter),
-                          color: const Color(0xffA8B2D1),
-                          iconSize: 16.0,
-                          onPressed: () {}),
-                      IconButton(
-                        icon: const FaIcon(FontAwesomeIcons.linkedin),
-                        color: const Color(0xffA8B2D1),
-                        onPressed: () {},
-                        iconSize: 16.0,
-                      ),
-                      IconButton(
-                          icon: const Icon(Icons.call),
-                          color: const Color(0xffA8B2D1),
-                          iconSize: 16.0,
-                          onPressed: () {}),
-                      IconButton(
-                          icon: const Icon(Icons.mail),
-                          color: const Color(0xffA8B2D1),
-                          iconSize: 16.0,
-                          onPressed: () {}),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 16.0),
-                        child: Container(
-                          height: size.height * 0.20,
-                          width: 2,
-                          color: Colors.grey.withOpacity(0.4),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: SizedBox(
-                    height: size.height - 82,
+            SizedBox(
+              height: size.height * 0.9,
+              child: Row(
+                children: [
+                  //Social Icon
+                  const SocialLinks(),
+
+                  Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          height: size.height * .06,
+                        Expanded(
+                          child: CustomScrollView(
+                            controller: _autoScrollController,
+                            slivers: <Widget>[
+                              SliverList(
+                                  delegate: SliverChildListDelegate([
+                                _wrapScrollTag(
+                                    index: 0, child: const Introduction()),
+                                _wrapScrollTag(
+                                    index: 1, child: const Contact()),
+                              ]))
+                            ],
+                          ),
                         ),
-                        const CustomText(
-                          text: "Hello,",
-                          textSize: 16.0,
-                          color: Color(0xff41FBDA),
-                          letterSpacing: 3.0,
-                        ),
-                        const SizedBox(
-                          height: 6.0,
-                        ),
-                        const CustomText(
-                          text: "Daksh Bhatia",
-                          textSize: 68.0,
-                          color: Color(0xffCCD6F6),
-                          fontWeight: FontWeight.w900,
-                        ),
-                        const SizedBox(
-                          height: 4.0,
-                        ),
-                        CustomText(
-                          text: "Think.Plan.Build",
-                          textSize: 56.0,
-                          color: const Color(0xffCCD6F6).withOpacity(0.6),
-                          fontWeight: FontWeight.w700,
-                        ),
-                        SizedBox(
-                          height: size.height * .04,
-                        ),
-                        SizedBox(
-                          height: size.height * .12,
-                        ),
+                        const Footer()
                       ],
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.07,
-                  height: MediaQuery.of(context).size.height - 82,
-                  //color: Colors.orange,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      RotatedBox(
-                        quarterTurns: 45,
-                        child: Text(
-                          "daksh2210@gmail.com",
-                          style: TextStyle(
-                            color: Colors.grey.withOpacity(0.6),
-                            letterSpacing: 3.0,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 16.0),
-                        child: Container(
-                          height: 100,
-                          width: 2,
-                          color: Colors.grey.withOpacity(0.4),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                  const EmailLink(),
+                ],
+              ),
             ),
+            //Footer
           ],
         ));
   }
