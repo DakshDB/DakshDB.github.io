@@ -10,7 +10,7 @@ class Introduction extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
 
     return SizedBox(
-      height: size.height * 0.8,
+      height: size.height,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:portfolio/constants/info.dart';
 import 'package:portfolio/utilities/launch_url.dart';
 
 class SocialLinks extends StatelessWidget {
@@ -18,20 +19,20 @@ class SocialLinks extends StatelessWidget {
               color: const Color(0xffA8B2D1),
               iconSize: 16.0,
               onPressed: () {
-                launchURL("https://github.com/DakshDB");
+                launchURL(github);
               }),
           IconButton(
               icon: const FaIcon(FontAwesomeIcons.twitter),
               color: const Color(0xffA8B2D1),
               iconSize: 16.0,
               onPressed: () {
-                launchURL("https://twitter.com/daksh_bhatia");
+                launchURL(twitter);
               }),
           IconButton(
             icon: const FaIcon(FontAwesomeIcons.linkedin),
             color: const Color(0xffA8B2D1),
             onPressed: () {
-              launchURL("https://www.linkedin.com/in/daksh-bhatia/");
+              launchURL(linkedin);
             },
             iconSize: 16.0,
           ),

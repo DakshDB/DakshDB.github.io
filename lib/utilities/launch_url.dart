@@ -1,3 +1,4 @@
+import 'package:portfolio/constants/info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 launchURL(String link) async {
@@ -10,7 +11,7 @@ launchURL(String link) async {
 }
 
 launchCaller() async {
-  const url = "tel:+917055000051";
+  const url = "tel:" + phoneNumber;
   if (await canLaunch(url)) {
     await launch(url);
   } else {
@@ -19,8 +20,8 @@ launchCaller() async {
 }
 
 launchEmail() async {
-  if (await canLaunch("mailto:daksh2210@gmail.com")) {
-    await launch("mailto:daksh2210@gmail.com");
+  if (await canLaunch("mailto:" + emailID)) {
+    await launch("mailto:" + emailID);
   } else {
     throw 'Could not launch';
   }

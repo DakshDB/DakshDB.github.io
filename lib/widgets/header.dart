@@ -9,7 +9,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 1,
+      length: 2,
       child: TabBar(
         isScrollable: true,
         indicatorColor: Colors.transparent,
@@ -17,6 +17,11 @@ class Header extends StatelessWidget {
           scrollToIndex(index + 1);
         },
         tabs: const [
+          Tab(
+            child: TabTitle(
+              text: 'About',
+            ),
+          ),
           Tab(
             child: TabTitle(
               text: 'Contact',

@@ -22,5 +22,6 @@ dev_dependencies:
   scroll_to_index: ^2.1.1
 
 flutter:
-
   uses-material-design: true
+  assets:
+    - images/profile_picture.png

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/widgets/about.dart';
 import 'package:portfolio/widgets/contact.dart';
 import 'package:portfolio/widgets/email_link.dart';
 import 'package:portfolio/widgets/footer.dart';
@@ -95,9 +96,17 @@ class _HomeState extends State<Home> {
                               SliverList(
                                   delegate: SliverChildListDelegate([
                                 _wrapScrollTag(
-                                    index: 0, child: const Introduction()),
+                                  index: 0,
+                                  child: const Introduction(),
+                                ),
                                 _wrapScrollTag(
-                                    index: 1, child: const Contact()),
+                                  index: 1,
+                                  child: const About(),
+                                ),
+                                _wrapScrollTag(
+                                  index: 2,
+                                  child: const Contact(),
+                                ),
                               ]))
                             ],
                           ),
@@ -110,7 +119,6 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
-            //Footer
           ],
         ));
   }

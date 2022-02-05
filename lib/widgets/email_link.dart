@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/constants/info.dart';
 
 class EmailLink extends StatelessWidget {
   const EmailLink({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class EmailLink extends StatelessWidget {
           RotatedBox(
             quarterTurns: 45,
             child: Text(
-              "daksh2210@gmail.com",
+              emailID,
               style: TextStyle(
                 color: Colors.grey.withOpacity(0.6),
                 letterSpacing: 3.0,

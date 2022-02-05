@@ -39,7 +39,7 @@ class Contact extends StatelessWidget {
               Wrap(
                 children: [
                   Text(
-                    "Mail me, may be you get a response",
+                    "Looking for a challenge? Need some work done? Contact me! I have the skills you are looking for.",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white.withOpacity(0.4),
