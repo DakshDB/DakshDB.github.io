@@ -53,12 +53,9 @@ class _HomeState extends State<Home> {
         backgroundColor: const Color(0xff0A192F),
         body: Column(
           children: [
-            SizedBox(
-              width: size.width,
-              height: size.height * 0.1,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 40.0, vertical: 20.0),
+            Expanded(
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 40),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

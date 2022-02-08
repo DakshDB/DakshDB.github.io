@@ -8,26 +8,31 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: TabBar(
-        isScrollable: true,
-        indicatorColor: Colors.transparent,
-        onTap: (index) {
-          scrollToIndex(index + 1);
-        },
-        tabs: const [
-          Tab(
-            child: TabTitle(
-              text: 'About',
+    var size = MediaQuery.of(context).size;
+    return Container(
+      alignment: Alignment.centerRight,
+      width: size.width * 0.5,
+      child: DefaultTabController(
+        length: 2,
+        child: TabBar(
+          isScrollable: true,
+          indicatorColor: Colors.transparent,
+          onTap: (index) {
+            scrollToIndex(index + 1);
+          },
+          tabs: const [
+            Tab(
+              child: TabTitle(
+                text: 'About',
+              ),
             ),
-          ),
-          Tab(
-            child: TabTitle(
-              text: 'Contact',
+            Tab(
+              child: TabTitle(
+                text: 'Contact',
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
