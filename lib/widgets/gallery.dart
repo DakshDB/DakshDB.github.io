@@ -39,7 +39,7 @@ class Gallery extends StatelessWidget {
                     color: Colors.black54,
                     child: const Image(
                       fit: BoxFit.cover,
-                      image: AssetImage("images/one.png"),
+                      image: AssetImage("images/one.jpeg"),
                     ),
                   ),
                   Container(
@@ -48,7 +48,7 @@ class Gallery extends StatelessWidget {
                     color: Colors.black54,
                     child: const Image(
                       fit: BoxFit.cover,
-                      image: AssetImage("images/two.png"),
+                      image: AssetImage("images/two.jpeg"),
                     ),
                   ),
                   Container(
@@ -57,7 +57,7 @@ class Gallery extends StatelessWidget {
                     color: Colors.black54,
                     child: const Image(
                       fit: BoxFit.cover,
-                      image: AssetImage("images/three.png"),
+                      image: AssetImage("images/three.jpeg"),
                     ),
                   ),
                 ]),
