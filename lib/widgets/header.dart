@@ -13,7 +13,7 @@ class Header extends StatelessWidget {
       alignment: Alignment.centerRight,
       width: size.width * 0.5,
       child: DefaultTabController(
-        length: 2,
+        length: 3,
         child: TabBar(
           isScrollable: true,
           indicatorColor: Colors.transparent,
@@ -24,6 +24,11 @@ class Header extends StatelessWidget {
             Tab(
               child: TabTitle(
                 text: 'About',
+              ),
+            ),
+            Tab(
+              child: TabTitle(
+                text: 'Gallery',
               ),
             ),
             Tab(

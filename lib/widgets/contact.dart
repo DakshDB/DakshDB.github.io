@@ -13,7 +13,7 @@ class Contact extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: size.height * 0.68,
+          height: size.height * 0.78,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -39,7 +39,7 @@ class Contact extends StatelessWidget {
               Wrap(
                 children: [
                   Text(
-                    "Looking for a challenge? Need some work done? Contact me! I have the skills you are looking for.",
+                    "Looking for a challenge? Need some work done? Contact me!",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white.withOpacity(0.4),

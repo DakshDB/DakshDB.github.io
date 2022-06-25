@@ -3,6 +3,7 @@ import 'package:portfolio/widgets/about.dart';
 import 'package:portfolio/widgets/contact.dart';
 import 'package:portfolio/widgets/email_link.dart';
 import 'package:portfolio/widgets/footer.dart';
+import 'package:portfolio/widgets/gallery.dart';
 import 'package:portfolio/widgets/header.dart';
 import 'package:portfolio/widgets/introduction.dart';
 import 'package:portfolio/widgets/social_links.dart';
@@ -102,6 +103,10 @@ class _HomeState extends State<Home> {
                                 ),
                                 _wrapScrollTag(
                                   index: 2,
+                                  child: const Gallery(),
+                                ),
+                                _wrapScrollTag(
+                                  index: 3,
                                   child: const Contact(),
                                 ),
                               ]))

@@ -8,7 +8,8 @@ class About extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return SizedBox(
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 100),
       height: size.height,
       child: Column(
         children: [
