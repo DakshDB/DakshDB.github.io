@@ -1,68 +1,80 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:portfolio/constants/info.dart';
+import 'package:portfolio/constants/theme.dart';
 import 'package:portfolio/utilities/launch_url.dart';
+import 'package:portfolio/utilities/responsive.dart';
 
 class SocialLinks extends StatelessWidget {
-  const SocialLinks({Key? key}) : super(key: key);
+  const SocialLinks({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    var ratio = size.width > 800 ? 0.09 : (size.width > 450 ? 0.12 : 0.18);
-    return SizedBox(
-      width: size.width * ratio,
-      height: size.height * 0.9,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            IconButton(
-                icon: const FaIcon(FontAwesomeIcons.github),
-                color: const Color(0xffA8B2D1),
-                iconSize: 16.0,
-                onPressed: () {
-                  launchURL(github);
-                }),
-            IconButton(
-                icon: const FaIcon(FontAwesomeIcons.twitter),
-                color: const Color(0xffA8B2D1),
-                iconSize: 16.0,
-                onPressed: () {
-                  launchURL(twitter);
-                }),
-            IconButton(
-              icon: const FaIcon(FontAwesomeIcons.linkedin),
-              color: const Color(0xffA8B2D1),
-              onPressed: () {
-                launchURL(linkedin);
-              },
-              iconSize: 16.0,
+    if (!Responsive.isDesktop(context)) return const SizedBox.shrink();
+
+    return Container(
+      width: 100,
+      decoration: const BoxDecoration(
+        border: Border(
+          right: BorderSide(width: 1, color: AppColors.border),
+        ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          _SocialIcon(
+            icon: const FaIcon(FontAwesomeIcons.github, size: 20),
+            onTap: () => launchURL(github),
+          ),
+          const SizedBox(height: 16),
+          _SocialIcon(
+            icon: const FaIcon(FontAwesomeIcons.xTwitter, size: 20),
+            onTap: () => launchURL(x),
+          ),
+          const SizedBox(height: 16),
+          _SocialIcon(
+            icon: const FaIcon(FontAwesomeIcons.linkedin, size: 20),
+            onTap: () => launchURL(linkedin),
+          ),
+          const SizedBox(height: 16),
+          _SocialIcon(
+            icon: const Icon(Icons.mail_outline, size: 20),
+            onTap: () => launchEmail(),
+          ),
+          const SizedBox(height: 60),
+        ],
+      ),
+    );
+  }
+}
+
+class _SocialIcon extends StatefulWidget {
+  final Widget icon;
+  final VoidCallback onTap;
+  const _SocialIcon({required this.icon, required this.onTap});
+
+  @override
+  State<_SocialIcon> createState() => _SocialIconState();
+}
+
+class _SocialIconState extends State<_SocialIcon> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: IconTheme(
+            data: IconThemeData(
+              color: _isHovered ? AppColors.accent : AppColors.textTertiary,
             ),
-            IconButton(
-                icon: const Icon(Icons.call),
-                color: const Color(0xffA8B2D1),
-                iconSize: 16.0,
-                onPressed: () {
-                  launchCaller();
-                }),
-            IconButton(
-                icon: const Icon(Icons.mail),
-                color: const Color(0xffA8B2D1),
-                iconSize: 16.0,
-                onPressed: () {
-                  launchEmail();
-                }),
-            Padding(
-              padding: const EdgeInsets.only(top: 16.0),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.30,
-                width: 3,
-                color: Colors.grey.withOpacity(0.4),
-              ),
-            ),
-          ],
+            child: widget.icon,
+          ),
         ),
       ),
     );

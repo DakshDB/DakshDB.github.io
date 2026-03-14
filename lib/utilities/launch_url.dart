@@ -1,28 +1,29 @@
 import 'package:portfolio/constants/info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-launchURL(String link) async {
-  var url = link;
-  if (await canLaunch(url)) {
-    await launch(url);
+Future<void> launchURL(String link) async {
+  final uri = Uri.parse(link);
+  if (await canLaunchUrl(uri)) {
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
   } else {
-    throw 'Could not launch $url';
+    throw 'Could not launch $link';
   }
 }
 
-launchCaller() async {
-  const url = "tel:" + phoneNumber;
-  if (await canLaunch(url)) {
-    await launch(url);
+Future<void> launchCaller() async {
+  final uri = Uri.parse("tel:$phoneNumber");
+  if (await canLaunchUrl(uri)) {
+    await launchUrl(uri);
   } else {
-    throw 'Could not launch $url';
+    throw 'Could not launch phone';
   }
 }
 
-launchEmail() async {
-  if (await canLaunch("mailto:" + emailID)) {
-    await launch("mailto:" + emailID);
+Future<void> launchEmail() async {
+  final uri = Uri.parse("mailto:$emailID");
+  if (await canLaunchUrl(uri)) {
+    await launchUrl(uri);
   } else {
-    throw 'Could not launch';
+    throw 'Could not launch email';
   }
 }

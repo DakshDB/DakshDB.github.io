@@ -1,121 +1,163 @@
 import 'package:flutter/material.dart';
-
-import 'custom_text.dart';
+import 'package:portfolio/constants/info.dart';
+import 'package:portfolio/constants/theme.dart';
+import 'package:portfolio/utilities/responsive.dart';
+import 'package:portfolio/widgets/section_wrapper.dart';
 
 class About extends StatelessWidget {
-  const About({Key? key}) : super(key: key);
+  const About({super.key});
+
+  static const List<String> skills = [
+    'Dart',
+    'Flutter',
+    'Go',
+    'Next.js',
+    'Python',
+    'Node.js',
+    'Microservices',
+    'AI/ML',
+    'TensorFlow',
+    'Git',
+    'Firebase',
+    'REST APIs',
+  ];
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 100),
-      height: size.height,
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              //About me
-              SizedBox(
-                height: size.height * 0.9,
-                width: size.width / 2 - 100,
-                child: Column(
-                  children: [
-                    //About me title
-                    Wrap(
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: [
-                        const SizedBox(
-                          width: 12.0,
-                        ),
-                        const CustomText(
-                          text: "About",
-                          textSize: 26.0,
-                          color: Color(0xffCCD6F6),
-                          fontWeight: FontWeight.w700,
-                        ),
-                        SizedBox(
-                          width: size.width * 0.01,
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          width: size.width / 8,
-                          height: 1.10,
-                          color: const Color(0xff303C55),
-                        ),
-                      ],
-                    ),
+    final isMobile = Responsive.isMobile(context);
 
-                    SizedBox(
-                      height: size.height * 0.07,
-                    ),
-                    Wrap(
-                      children: const [
-                        CustomText(
-                          text:
-                              "Full Stack Developer with experience in website development, mobile app development, backend servers and databases.\n\n",
-                          textSize: 16.0,
-                          color: Color(0xff828DAA),
-                          letterSpacing: 0.75,
-                        ),
-                        CustomText(
-                          text:
-                              "A lazy tech nerd who loves food, puzzles and long exposure photography.",
-                          textSize: 16.0,
-                          color: Color(0xff828DAA),
-                          letterSpacing: 0.75,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+    return SectionWrapper(
+      sectionNumber: '01.',
+      sectionTitle: 'SYSTEM ARCHITECTURE', // Renamed for tech vibe
+      child: isMobile ? _buildMobileLayout(context) : _buildDesktopLayout(context),
+    );
+  }
 
-              Expanded(
-                child: SizedBox(
-                  height: size.height * 0.9,
-                  child: Column(
-                    children: [
-                      Container(
-                        decoration: const BoxDecoration(
-                          color: Color(0xff61F9D5),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0xff61F9D5),
-                              blurRadius: 10,
-                              offset:
-                                  Offset(5, 5), // changes position of shadow
-                            ),
-                          ],
-                        ),
-                        child: Stack(
-                          children: [
-                            Container(
-                              height: size.height / 2,
-                              width: size.width / 5,
-                              color: Colors.black54,
-                              child: const Image(
-                                fit: BoxFit.cover,
-                                image: AssetImage("images/profile_picture.png"),
-                              ),
-                            ),
-                            Container(
-                              height: size.height / 2,
-                              width: size.width / 5,
-                              color: const Color(0x4061F9D5),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Spacer()
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
+  Widget _buildDesktopLayout(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 5,
+          child: _buildTextContent(),
+        ),
+        const SizedBox(width: 64),
+        Expanded(
+          flex: 3,
+          child: _buildProfileImage(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMobileLayout(BuildContext context) {
+    return Column(
+      children: [
+        _buildTextContent(),
+        const SizedBox(height: 60),
+        _buildProfileImage(),
+      ],
+    );
+  }
+
+  Widget _buildTextContent() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          aboutBio.toUpperCase(), 
+          style: AppTextStyles.mono.copyWith(
+            fontSize: 13,
+            color: AppColors.textSecondary,
+            height: 1.6,
+          )
+        ),
+        const SizedBox(height: 48),
+        Text(
+          '// CORE STACK:',
+          style: AppTextStyles.mono.copyWith(color: AppColors.accent, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 24),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: skills.map((skill) => _buildSkillTag(skill)).toList(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSkillTag(String skill) {
+    return _InteractiveSkillTag(skill: skill);
+  }
+
+  Widget _buildProfileImage() {
+    return const _InteractiveProfileImage();
+  }
+}
+
+class _InteractiveSkillTag extends StatefulWidget {
+  final String skill;
+  const _InteractiveSkillTag({required this.skill});
+
+  @override
+  State<_InteractiveSkillTag> createState() => _InteractiveSkillTagState();
+}
+
+class _InteractiveSkillTagState extends State<_InteractiveSkillTag> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 150),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: _isHovered ? AppColors.accent : Colors.transparent,
+          border: Border.all(color: _isHovered ? AppColors.accent : AppColors.border),
+        ),
+        child: Text(
+          widget.skill.toUpperCase(), 
+          style: AppTextStyles.mono.copyWith(
+            fontSize: 11,
+            fontWeight: FontWeight.w600,
+            color: _isHovered ? AppColors.bgPrimary : AppColors.textPrimary,
+          )
+        ),
+      ),
+    );
+  }
+}
+
+class _InteractiveProfileImage extends StatefulWidget {
+  const _InteractiveProfileImage();
+
+  @override
+  State<_InteractiveProfileImage> createState() => _InteractiveProfileImageState();
+}
+
+class _InteractiveProfileImageState extends State<_InteractiveProfileImage> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          border: Border.all(color: _isHovered ? AppColors.accent : AppColors.border, width: 1),
+        ),
+        child: const Image(
+          fit: BoxFit.cover,
+          width: double.infinity,
+          image: AssetImage("images/profile_picture.png"),
+        ),
       ),
     );
   }
